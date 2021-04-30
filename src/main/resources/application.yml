@@ -1,0 +1,48 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/tacocloud
+    username: tacodb
+    password: tacopassword
+    driver-class-name: com.mysql.jdbc.Driver
+
+    spring:
+      datasource:
+        - order-schema.sql
+        - ingredient-schema.sql
+        - taco-schema.sql
+        - user-schema.sql
+        data:
+          -ingredients.sql
+
+        server:
+          port:8443
+        ssl:
+          key-store: C:\Users\asus\mykeys.jks
+          key-store-password: letmein
+          key-password: letmein
+
+          logging:
+            path: /var/logs
+            file: TacoCloud.log
+            level:
+              root: WARN
+              org:
+                springframework:
+                  security: DEBUG
+
+                  greeting:
+                    welcome: Używasz aplikacji ${spring.application.name}.
+
+                 spring:
+                   profiles:
+                     active:
+                       -prod
+
+
+                spring:
+                  jms:
+                    template:
+                      default-destination: tacocloud.order.queue
+
+
+
